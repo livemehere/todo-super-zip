@@ -2,6 +2,7 @@
 
 ## TODO
 
+- [x] 페이지별 lazy loading 적용
 - [ ] 모든 test 코드 작성
 
 ## library
