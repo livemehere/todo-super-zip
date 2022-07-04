@@ -10,6 +10,7 @@
 
 - react-router-dom
 - styled-components
+- react-icons
 - redux
 - react-redux
 - jest

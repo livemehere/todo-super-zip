@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Container } from "./style";
 import { GlobalStyle, lightTheme, darkTheme } from "./global-stye";
-import Nav from "./components/nav/nav";
+import Nav from "./components/nav";
 
 export type ColorMode = "light" | "dark";
 
