@@ -3,7 +3,7 @@
 ## TODO
 
 - [x] 페이지별 lazy loading 적용
-- [ ] 다크모드 구현하기
+- [x] 다크모드 구현하기
 - [ ] 모든 test 코드 작성
 
 ## library
@@ -13,4 +13,5 @@
 - react-icons
 - redux
 - react-redux
+- @reduxjs/toolkit
 - jest

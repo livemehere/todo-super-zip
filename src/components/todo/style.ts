@@ -5,6 +5,8 @@ export const TodoList = styled.ul`
   border-radius: 3px;
   padding: 0.5em;
   min-height: 50vh;
+  max-height: 70vh;
+  overflow-y: auto;
 `;
 
 export const TodoWrap = styled.li`

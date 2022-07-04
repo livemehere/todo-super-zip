@@ -19,6 +19,16 @@ export default function Home() {
         <Todo isCompleted={false} />
         <Todo isCompleted={true} />
         <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
+        <Todo isCompleted={true} />
       </TodoList>
     </>
   );
