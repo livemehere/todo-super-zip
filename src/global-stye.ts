@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import normalize from "styled-normalize";
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
@@ -22,6 +23,7 @@ export const darkTheme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+    ${normalize}
     body{
         padding: 0;
         margin: 0;
