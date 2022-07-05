@@ -8,3 +8,13 @@ export const Input = styled.input`
   border-radius: 3px;
   outline: none;
 `;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  margin: auto;
+  padding: 0.5em;
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  outline: none;
+  resize: none;
+`;

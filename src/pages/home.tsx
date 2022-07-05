@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Input } from "../components/home/style";
+import { Input, TextArea } from "../components/home/style";
 import Progress from "../components/progress";
 import Todo from "../components/todo";
 import { TodoList } from "../components/todo/style";
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 export default function Home() {
   const [input, handleChange, reset] = useForm({
     text: "",
+    description: "",
   });
 
   const todos = useAppSelector((state) => state.todos.entities);
@@ -33,15 +34,23 @@ export default function Home() {
     dispatch(
       todosSlice.actions.create({
         text: input.text,
-        description: "내용을 채워주세요",
+        description: input.description,
       })
     );
   }, [input, dispatch]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
+    if (!input.text) return;
     createTodo();
     reset();
+  };
+
+  const onEnterPress: React.KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.key == "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
   };
   return (
     <>
@@ -52,6 +61,13 @@ export default function Home() {
           placeholder="새로운 목표를 적어보세요!"
           value={input.text}
           onChange={(e) => handleChange(e, "text")}
+        />
+        <TextArea
+          cols={30}
+          rows={10}
+          value={input.description}
+          onChange={(e) => handleChange(e, "description")}
+          onKeyDown={onEnterPress}
         />
       </form>
       <TodoList>

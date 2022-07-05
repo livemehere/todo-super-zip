@@ -6,10 +6,17 @@ interface StateType {
 
 export default function useForm<T = StateType>(
   initialValue: T
-): [T, (e: ChangeEvent<HTMLInputElement>, key: any) => void, () => void] {
+): [
+  T,
+  (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: any) => void,
+  () => void
+] {
   const [form, setForm] = useState<T>(initialValue);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string
+  ) => {
     setForm((prev) => ({
       ...prev,
       [key]: e.target.value,
