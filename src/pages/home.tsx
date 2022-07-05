@@ -10,7 +10,7 @@ import { Input, TextArea } from "../components/home/style";
 import Progress from "../components/progress";
 import Todo from "../components/todo";
 import { TodoList } from "../components/todo/style";
-import todosSlice, { TodoType } from "../redux/todosSlice";
+import todosSlice, { getTodos, TodoType } from "../redux/todosSlice";
 import useForm from "../hooks/useForm";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
@@ -22,6 +22,10 @@ export default function Home() {
 
   const todos = useAppSelector((state) => state.todos.entities);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTodos());
+  }, []);
 
   const retio = useMemo(() => {
     const completedCnt = todos.filter(

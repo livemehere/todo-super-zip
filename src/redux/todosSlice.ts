@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface TodoType {
   id: number;
@@ -7,13 +7,17 @@ export interface TodoType {
   description: string;
 }
 
-const initialState = {
-  entities: [
-    { id: 1, text: "todo1", description: "내용...1", isComplete: false },
-    { id: 2, text: "todo2", description: "내용...2", isComplete: true },
-    { id: 3, text: "todo3", description: "내용...3", isComplete: false },
-  ],
+interface InitalType {
+  entities: TodoType[];
+}
+
+const initialState: InitalType = {
+  entities: [],
 };
+
+export const getTodos = createAsyncThunk("todos/getTodos", async () => {
+  return fetch("http://localhost:5000/todos").then((res) => res.json());
+});
 
 export const todosSlice = createSlice({
   name: "todos",
@@ -41,6 +45,11 @@ export const todosSlice = createSlice({
       const { id } = action.payload;
       state.entities = state.entities.filter((todo) => todo.id !== id);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getTodos.fulfilled, (state, action) => {
+      state.entities = action.payload;
+    });
   },
 });
 
