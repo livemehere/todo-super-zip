@@ -2,24 +2,22 @@ import { CheckButton, RemoveButton, Title, TodoWrap } from "./style";
 import { CgRemove } from "react-icons/cg";
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hooks";
+import todosSlice from "../../redux/todosSlice";
 
 interface Props {
   id: number;
   text: string;
   isCompleted: boolean;
-  handleComplete: (id: number) => void;
-  handleDelete: (id: number) => void;
 }
-export default function Todo({
-  id,
-  text,
-  isCompleted,
-  handleComplete,
-  handleDelete,
-}: Props) {
+export default function Todo({ id, text, isCompleted }: Props) {
+  const dispatch = useAppDispatch();
+
   return (
     <TodoWrap>
-      <CheckButton onClick={() => handleComplete(id)}>
+      <CheckButton
+        onClick={() => dispatch(todosSlice.actions.toggleComplete({ id }))}
+      >
         {isCompleted ? (
           <GrCheckboxSelected className="checkbox" />
         ) : (
@@ -30,7 +28,7 @@ export default function Todo({
       <Title isCompleted={isCompleted}>
         <Link to={`detail/${id}`}>{text}</Link>
       </Title>
-      <RemoveButton onClick={() => handleDelete(id)}>
+      <RemoveButton onClick={() => dispatch(todosSlice.actions.remove({ id }))}>
         <CgRemove />
       </RemoveButton>
     </TodoWrap>

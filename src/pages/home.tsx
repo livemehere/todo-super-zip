@@ -10,61 +10,33 @@ import { Input } from "../components/home/style";
 import Progress from "../components/progress";
 import Todo from "../components/todo";
 import { TodoList } from "../components/todo/style";
+import todosSlice, { TodoType } from "../redux/todosSlice";
 import useForm from "../hooks/useForm";
-
-export interface TodoType {
-  id: number;
-  text: string;
-  isComplete: boolean;
-  description: string;
-}
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 export default function Home() {
   const [input, handleChange, reset] = useForm({
     text: "",
   });
 
-  const [todos, setTodos] = useState<TodoType[]>([
-    { id: 1, text: "todo1", description: "내용...1", isComplete: false },
-    { id: 2, text: "todo2", description: "내용...2", isComplete: true },
-    { id: 3, text: "todo3", description: "내용...3", isComplete: false },
-  ]);
+  const todos = useAppSelector((state) => state.todos.entities);
+  const dispatch = useAppDispatch();
 
   const retio = useMemo(() => {
-    const completedCnt = [...todos].filter(
+    const completedCnt = todos.filter(
       (todo) => todo.isComplete === true
     ).length;
-
     return (completedCnt / todos.length) * 100;
   }, [todos]);
 
   const createTodo = useCallback(() => {
-    const data = {
-      id: Date.now(),
-      text: input.text,
-      description: "상세 내용입니다",
-      isComplete: false,
-    };
-    setTodos((prev) => [...prev, data]);
-  }, [input]);
-
-  const handleComplete = useCallback(
-    (id: number) => {
-      const data = [...todos].map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, isComplete: !todo.isComplete };
-        }
-        return todo;
-      });
-      setTodos(data);
-    },
-    [todos]
-  );
-
-  const handleDelete = (id: number) => {
-    const data = [...todos].filter((todo) => todo.id !== id);
-    setTodos(data);
-  };
+    dispatch(
+      todosSlice.actions.create({
+        text: input.text,
+        description: "내용을 채워주세요",
+      })
+    );
+  }, [input, dispatch]);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -89,8 +61,6 @@ export default function Home() {
             id={todo.id}
             text={todo.text}
             isCompleted={todo.isComplete}
-            handleComplete={handleComplete}
-            handleDelete={handleDelete}
           />
         ))}
       </TodoList>

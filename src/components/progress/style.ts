@@ -20,7 +20,7 @@ export const ProgressInner = styled.div<ProgressInnerProps>`
   width: ${({ mount }) => `${mount}%`};
   transition: all 1s;
   ${({ mount }) =>
-    mount > 90 &&
+    mount > 80 &&
     mount < 100 &&
     css`
       @keyframes shake {

@@ -1,4 +1,3 @@
-import { TodoType } from "../../pages/home";
 import { ProgressBar, ProgressInner } from "./style";
 
 interface Props {
