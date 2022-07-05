@@ -16,6 +16,7 @@ export interface TodoType {
   id: number;
   text: string;
   isComplete: boolean;
+  description: string;
 }
 
 export default function Home() {
@@ -24,9 +25,9 @@ export default function Home() {
   });
 
   const [todos, setTodos] = useState<TodoType[]>([
-    { id: 1, text: "todo1", isComplete: false },
-    { id: 2, text: "todo2", isComplete: true },
-    { id: 3, text: "todo3", isComplete: false },
+    { id: 1, text: "todo1", description: "내용...1", isComplete: false },
+    { id: 2, text: "todo2", description: "내용...2", isComplete: true },
+    { id: 3, text: "todo3", description: "내용...3", isComplete: false },
   ]);
 
   const retio = useMemo(() => {
@@ -38,7 +39,12 @@ export default function Home() {
   }, [todos]);
 
   const createTodo = useCallback(() => {
-    const data = { id: Date.now(), text: input.text, isComplete: false };
+    const data = {
+      id: Date.now(),
+      text: input.text,
+      description: "상세 내용입니다",
+      isComplete: false,
+    };
     setTodos((prev) => [...prev, data]);
   }, [input]);
 
