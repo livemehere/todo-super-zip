@@ -3,6 +3,7 @@ import {
   FormEventHandler,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { Input } from "../components/home/style";
@@ -11,16 +12,30 @@ import Todo from "../components/todo";
 import { TodoList } from "../components/todo/style";
 import useForm from "../hooks/useForm";
 
+export interface TodoType {
+  id: number;
+  text: string;
+  isComplete: boolean;
+}
+
 export default function Home() {
   const [input, handleChange, reset] = useForm({
     text: "",
   });
 
-  const [todos, setTodos] = useState([
+  const [todos, setTodos] = useState<TodoType[]>([
     { id: 1, text: "todo1", isComplete: false },
     { id: 2, text: "todo2", isComplete: true },
     { id: 3, text: "todo3", isComplete: false },
   ]);
+
+  const retio = useMemo(() => {
+    const completedCnt = [...todos].filter(
+      (todo) => todo.isComplete === true
+    ).length;
+
+    return (completedCnt / todos.length) * 100;
+  }, [todos]);
 
   const createTodo = useCallback(() => {
     const data = { id: Date.now(), text: input.text, isComplete: false };
@@ -52,7 +67,7 @@ export default function Home() {
   };
   return (
     <>
-      <Progress />
+      <Progress mount={retio} />
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
