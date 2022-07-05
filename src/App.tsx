@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Container } from "./style";
 import { GlobalStyle, lightTheme, darkTheme } from "./global-stye";
 import Nav from "./components/nav";
+import Spinner from "./components/spinner";
 
 export type ColorMode = "light" | "dark";
 
@@ -19,12 +20,14 @@ export default function App() {
         <GlobalStyle />
         <Container>
           <Nav mode={mode} setMode={setMode} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="detail">
-              <Route path=":id" element={<Detail />} />
-            </Route>
-          </Routes>
+          <Suspense fallback={<Spinner />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="detail">
+                <Route path=":id" element={<Detail />} />
+              </Route>
+            </Routes>
+          </Suspense>
         </Container>
       </ThemeProvider>
     </BrowserRouter>

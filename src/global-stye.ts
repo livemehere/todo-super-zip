@@ -43,6 +43,12 @@ export const GlobalStyle = createGlobalStyle`
     ul,li{
       padding:0;
     }
+    a{
+      text-decoration:none;
+    }
+    a:visited{
+      color:inherit;
+    }
 
     input:focus{
       border: 1px solid ${({ theme }) => theme.colors.blue};

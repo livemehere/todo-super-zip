@@ -1,6 +1,7 @@
 import { CheckButton, RemoveButton, Title, TodoWrap } from "./style";
 import { CgRemove } from "react-icons/cg";
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 interface Props {
   id: number;
@@ -25,7 +26,10 @@ export default function Todo({
           <GrCheckbox className="checkbox" />
         )}
       </CheckButton>
-      <Title isCompleted={isCompleted}>{text}</Title>
+
+      <Title isCompleted={isCompleted}>
+        <Link to={`detail/${id}`}>{text}</Link>
+      </Title>
       <RemoveButton onClick={() => handleDelete(id)}>
         <CgRemove />
       </RemoveButton>
