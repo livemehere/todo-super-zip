@@ -19,6 +19,41 @@ export const getTodos = createAsyncThunk("todos/getTodos", async () => {
   return fetch("http://localhost:5000/todos").then((res) => res.json());
 });
 
+export const deleteTodos = createAsyncThunk(
+  "todos/deleteTodos",
+  async (id: number) => {
+    return fetch(`http://localhost:5000/todos/${id}`, {
+      method: "delete",
+    }).then((res) => res.json());
+  }
+);
+
+export const completeTodos = createAsyncThunk(
+  "todos/completeTodos",
+  async (id: number) => {
+    return fetch(`http://localhost:5000/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ isComplete: true }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+  }
+);
+
+export const uncompleteTodos = createAsyncThunk(
+  "todos/uncompleteTodos",
+  async (id: number) => {
+    return fetch(`http://localhost:5000/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ isComplete: false }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+  }
+);
+
 export const todosSlice = createSlice({
   name: "todos",
   initialState,
@@ -50,6 +85,9 @@ export const todosSlice = createSlice({
     builder.addCase(getTodos.fulfilled, (state, action) => {
       state.entities = action.payload;
     });
+    builder.addCase(deleteTodos.fulfilled, (state, action) => {});
+    builder.addCase(completeTodos.fulfilled, (state, action) => {});
+    builder.addCase(uncompleteTodos.fulfilled, (state, action) => {});
   },
 });
 
