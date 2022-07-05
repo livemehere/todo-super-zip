@@ -3,20 +3,30 @@ import { CgRemove } from "react-icons/cg";
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
 
 interface Props {
+  id: number;
+  text: string;
   isCompleted: boolean;
+  handleComplete: (id: number) => void;
+  handleDelete: (id: number) => void;
 }
-export default function Todo({ isCompleted }: Props) {
+export default function Todo({
+  id,
+  text,
+  isCompleted,
+  handleComplete,
+  handleDelete,
+}: Props) {
   return (
     <TodoWrap>
-      <CheckButton>
+      <CheckButton onClick={() => handleComplete(id)}>
         {isCompleted ? (
           <GrCheckboxSelected className="checkbox" />
         ) : (
           <GrCheckbox className="checkbox" />
         )}
       </CheckButton>
-      <Title isCompleted={isCompleted}>할일 제목</Title>
-      <RemoveButton>
+      <Title isCompleted={isCompleted}>{text}</Title>
+      <RemoveButton onClick={() => handleDelete(id)}>
         <CgRemove />
       </RemoveButton>
     </TodoWrap>
